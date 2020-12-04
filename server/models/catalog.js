@@ -32,6 +32,7 @@ const productSchema = new Schema({
       },
       sale_price: {
         type: Number,
+        require: true,
       },
       avail: {
         type: Boolean,
@@ -55,15 +56,38 @@ const productSchema = new Schema({
 });
 
 productSchema.pre('save', function (next) {
-  const product = this;
+  const self = this;
 
-  // calculate sale price = purchase price * 10%
-  product.attrs.sale_price = product.attrs.purchase_price * 0.1;
-  if (product.attrs.qty > 0) {
-    product.attrs.avail = true;
-  }
+  console.log(self.attrs);
+
+  self.attrs.forEach((product) => {
+    // calculate sale price = purchase price * 10%
+    product.sale_price = parseFloat((product.purchase_price * 1.1).toFixed(2));
+    if (product.qty > 0) {
+      product.avail = true;
+    }
+  });
+
   next();
 });
+
+// @TBD update for sale price and avail
+// productSchema.pre('findOneAndUpdate', function (next) {
+//   const self = this;
+
+//   console.log(self);
+//   console.log(self.getQuery());
+
+//   self.attrs.forEach((product) => {
+//     // calculate sale price = purchase price * 10%
+//     product.sale_price = parseFloat((product.purchase_price * 1.1).toFixed(2));
+//     if (product.qty > 0) {
+//       product.avail = true;
+//     }
+//   });
+
+//   next();
+// });
 
 const Product = model('product', productSchema);
 

@@ -13,7 +13,7 @@ router.get('/category', catalogController.getCategories, (req, res) =>
 );
 
 router.post('/product', catalogController.addProduct, (req, res) => {
-  res.status(200).json();
+  res.sendStatus(200);
 });
 
 router.get('/product', catalogController.getProducts, (req, res) => {
@@ -24,8 +24,12 @@ router.get('/product/:id', catalogController.getProduct, (req, res) => {
   res.status(200).json({ product: res.locals.product });
 });
 
-router.put('/product/:id', (req, res) => {});
+router.put('/product/:id', catalogController.updateProduct, (req, res) => {
+  res.status(200).json({ product: res.locals.product });
+});
 
-router.delete('/product/:id', (req, res) => {});
+router.delete('/product/:id', catalogController.deleteProduct, (req, res) => {
+  res.status(200).json({});
+});
 
 module.exports = router;

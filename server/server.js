@@ -21,7 +21,11 @@ const catalogRouter = require('./routes/catalog');
  * DB connection.
  */
 mongoose
-  .connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+  })
   .then(() => console.log('Connected to Mongo DB.'))
   .catch((err) => console.log(err));
 
@@ -41,10 +45,17 @@ app.get('/', (req, res) => {
 });
 
 /**
+ * Handle unknown routes.
+ */
+app.use('*', (req, res) => {
+  res.sendStatus(404);
+});
+
+/**
  * Global Error.
  */
 app.use((err, req, res, next) => {
-  // console.log('Global Error', err);
+  console.log('Global Error', err);
   const defaultError = {
     log: 'Express error handler caught: unknown middleware error',
     status: 400,

@@ -122,7 +122,8 @@ catalogController.getProducts = async (req, res, next) => {
 };
 
 /**
- * Get a list of products.
+ * Get a product.
+ * @param {string} id
  */
 catalogController.getProduct = async (req, res, next) => {
   const { id } = req.params;
@@ -160,6 +161,10 @@ catalogController.getProduct = async (req, res, next) => {
   }
 };
 
+/**
+ * Update a product
+ * @param {string} id
+ */
 catalogController.updateProduct = async (req, res, next) => {
   const { id } = req.params;
 
@@ -174,37 +179,70 @@ catalogController.updateProduct = async (req, res, next) => {
     });
   }
 
-  // const {  name, description, material, attrs, catId } = req.body;
-  // if (
-  //   !name ||
-  //   !catId ||
-  //   typeof name !== 'string' ||
-  //   typeof catId !== 'string'
-  // ) {
-  //   return next({
-  //     log:
-  //       'catalogController.updateProduct: required param/s are empty or invalid data type/s',
-  //     status: 406,
-  //     message: {
-  //       err: 'Invalid request params.',
-  //     },
-  //   });
-  // }
-  // try {
-  //   await Product.findByIdAndUpdate();
-  //   next();
-  // } catch (e) {
-  //   console.log(e);
-  //   return next({
-  //     log: `catalogController.updateProduct: ${e}`,
-  //     status: 500,
-  //     message: {
-  //       err: 'DB Error occurred',
-  //     },
-  //   });
-  // }
+  const { name, description, material, attrs, catId } = req.body;
+  if (
+    !name ||
+    !catId ||
+    typeof name !== 'string' ||
+    typeof catId !== 'string'
+  ) {
+    return next({
+      log:
+        'catalogController.updateProduct: required param/s are empty or invalid data type/s',
+      status: 406,
+      message: {
+        err: 'Invalid request params.',
+      },
+    });
+  }
+
+  // @TBD update on pre state.
+  // @TBD push to attrs
+  // @TBD remove from attrs
+
+  try {
+    const product = await Product.findByIdAndUpdate(
+      id,
+      {
+        $set: {
+          name,
+          description,
+          material,
+          cat_id: catId,
+          'attrs.$[]': attrs,
+        },
+      },
+      {
+        new: true,
+      }
+    );
+
+    const cid = product.cat_id;
+
+    console.log('PRODUCT', product);
+
+    if (cid) {
+      const category = await Category.findById({ _id: cid }).exec();
+      product.set('cat_id', undefined, { strict: false });
+      product.set('category', category, { strict: false });
+      res.locals.product = product;
+      next();
+    }
+  } catch (e) {
+    return next({
+      log: `catalogController.updateProduct: ${e}`,
+      status: 500,
+      message: {
+        err: 'DB Error occurred',
+      },
+    });
+  }
 };
 
+/**
+ * Delete a product.
+ * @param {string} id
+ */
 catalogController.deleteProduct = async (req, res, next) => {
   const { id } = req.params;
 
@@ -220,8 +258,7 @@ catalogController.deleteProduct = async (req, res, next) => {
   }
 
   try {
-    const deleted = await Product.findByIdAndDelete({ _id: id });
-    console.log(deleted);
+    await Product.findByIdAndDelete({ _id: id });
     next();
   } catch (e) {
     return next({
