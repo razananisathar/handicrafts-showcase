@@ -48,6 +48,7 @@ app.get('/', (req, res) => {
  * Handle unknown routes.
  */
 app.use('*', (req, res) => {
+  console.log(req);
   res.sendStatus(404);
 });
 
