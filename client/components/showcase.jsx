@@ -1,5 +1,6 @@
 import React from 'react';
 import Product from '../components/product';
+import banner from '../assets/images/banner.jpeg';
 
 const Showcase = (props) => {
   const products = [];
@@ -19,7 +20,7 @@ const Showcase = (props) => {
   return (
     <div className="showcase">
       <div className="hero">
-        <p> Static image display</p>
+        <img src={banner} />
       </div>
       {/* filter menu */}
       <div className="products-container">{products}</div>

@@ -59,8 +59,8 @@ module.exports = {
         ],
       },
       {
-        test: /\.(?:icon|gif|png|jpg|[jeg])$/i,
-        type: 'asset/resouce',
+        test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
+        type: 'asset/resource',
       },
       {
         // Fonts and SVGs
