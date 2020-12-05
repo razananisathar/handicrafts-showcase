@@ -2,8 +2,25 @@
 
 html {
   font-size: $font-size;
-  color: $font-color;
+  // color: $font-color;
 }
 body {
-  background-color: $light-blue;
+  // background-color: $light-blue;
+}
+
+.container {
+}
+
+.navbar {
+  display: flex;
+  background-color: orange;
+
+  .logo {
+  }
+
+  .nav-menu {
+    a {
+      padding: 20px;
+    }
+  }
 }
