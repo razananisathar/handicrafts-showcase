@@ -4,13 +4,9 @@ const catalogController = require('../controllers/catalogController');
 
 const router = express.Router();
 
-router.post('/category', catalogController.addCategory, (req, res) =>
-  res.sendStatus(200)
-);
+router.post('/category', catalogController.addCategory, (req, res) => res.status(200).json({ category: res.locals.category }));
 
-router.get('/category', catalogController.getCategories, (req, res) =>
-  res.status(200).json({ categories: res.locals.categories })
-);
+router.get('/category', catalogController.getCategories, (req, res) => res.status(200).json({ categories: res.locals.categories }));
 
 router.post('/product', catalogController.addProduct, (req, res) => {
   res.sendStatus(200);

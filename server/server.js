@@ -30,6 +30,11 @@ mongoose
   .catch((err) => console.log(err));
 
 /**
+ * handling static assets
+ */
+app.use(express.static('client'));
+
+/**
  * handle parsing request body
  */
 app.use(express.json());

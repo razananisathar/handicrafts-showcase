@@ -1,18 +1,17 @@
 import React from 'react';
-import Product from '../components/product';
+import Product from './Product';
 import banner from '../assets/images/banner.jpeg';
 
 const Showcase = (props) => {
   const products = [];
 
-  console.log(props.productList);
-
   props.productList.forEach((product) =>
     products.push(
       <Product
-        key={product._id}
+        key={`pro-${product._id}`}
         name={product.name}
         desc={product.description}
+        id={product._id}
       />
     )
   );

@@ -2,4 +2,7 @@
  * @description Action Types Constants
  */
 // eslint-disable-next-line import/prefer-default-export
-export const LOAD_PRODUCTS = 'LOAD_PRODUCTS';
+export const LOAD_ALLPRODUCTS = 'LOAD_ALLPRODUCTS';
+export const LOAD_CATEGORIES = 'LOAD_CATEGORIES';
+export const DISPLAY_PRODUCT = 'DISPLAY_PRODUCT';
+export const ADD_CATEGORY = 'ADD_CATEGORY';

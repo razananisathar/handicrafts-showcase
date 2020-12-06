@@ -9,6 +9,7 @@ body {
 }
 
 .container {
+  margin: 20px 0;
 }
 
 .navbar {
@@ -19,8 +20,52 @@ body {
   }
 
   .nav-menu {
+    margin-right: auto;
     a {
       padding: 20px;
     }
   }
+}
+
+.products-container {
+  display: flex;
+  justify-content: space-between;
+
+  .product-card {
+    padding: 20px;
+    background: #f5f5f5;
+    border: 1px solid;
+  }
+}
+
+.category-container {
+  display: flex;
+  justify-content: space-between;
+
+  .category-card {
+    padding: 20px;
+    background: #f5f5f5;
+    border: 1px solid;
+  }
+}
+
+.category-creator {
+  margin: 50px;
+  display: flex;
+  flex-direction: column;
+}
+.btn {
+}
+
+.btn-info {
+  background-color: $light-blue;
+}
+
+.error-message {
+  color: $light-red;
+}
+
+footer {
+  background: #000011;
+  padding: 5px;
 }

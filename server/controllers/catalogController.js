@@ -21,7 +21,8 @@ catalogController.addCategory = async (req, res, next) => {
   }
 
   try {
-    await new Category({ name }).save();
+    const category = await new Category({ name }).save();
+    res.locals.category = category;
     next();
   } catch (e) {
     return next({

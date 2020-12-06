@@ -8,13 +8,14 @@ import thunk from 'redux-thunk';
 
 import reducers from './reducers/index';
 
-import { loadProducts } from './actions/actions';
+import { loadAllProducts, loadCategories } from './actions/actions';
 
 const store = createStore(
   reducers,
   composeWithDevTools(applyMiddleware(thunk))
 );
 
-store.dispatch(loadProducts());
+store.dispatch(loadAllProducts());
+store.dispatch(loadCategories());
 
 export default store;

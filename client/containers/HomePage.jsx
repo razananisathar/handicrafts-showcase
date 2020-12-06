@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../actions/actions';
+// import * as actions from '../actions/actions';
 
-import Navbar from '../components/nav';
-import Showcase from '../components/showcase';
+import Showcase from '../components/Showcase';
 
 const mapStateToProps = (state) => ({
   productList: state.catalog.productList,
@@ -11,22 +10,19 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({});
 
-class MainContainer extends Component {
+class HomePage extends Component {
   constructor(props) {
     super(props);
-    console.log(this.state);
   }
 
   render() {
     return (
       <div className="container">
-        {/* navbar */}
-        <Navbar />
-        {/* home page products display*/}
+        {/* home page all products display*/}
         <Showcase productList={this.props.productList} />
       </div>
     );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
