@@ -9,6 +9,7 @@ const initialState = {
   // isFetching: false,
   productList: [],
   categoryList: [],
+  product: null,
 };
 
 const catalogReducer = (state = initialState, action) => {
@@ -34,7 +35,15 @@ const catalogReducer = (state = initialState, action) => {
     case types.DISPLAY_PRODUCT:
       return {
         ...state,
-        product: action.payload,
+        product: action.payload, //@TBD
+      };
+
+    case types.DISPLAY_PRODUCTS:
+      return {
+        ...state,
+        productList: state.productList.filter(
+          ({ cat_id }) => cat_id === action.payload
+        ),
       };
 
     default:

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 // import * as actions from '../actions/actions';
 
 import Showcase from '../components/Showcase';

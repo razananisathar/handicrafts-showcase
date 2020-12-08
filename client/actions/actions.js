@@ -4,6 +4,9 @@
 
 import * as types from '../constants/actionTypes';
 
+/**
+ * fetch all products.
+ */
 export const loadAllProducts = () => (dispatch) => {
   fetch('/api')
     .then((data) => data.json())
@@ -16,10 +19,15 @@ export const loadAllProducts = () => (dispatch) => {
     .catch((error) => console.error(error)); /// @TBD handle error
 };
 
+/**
+ * get a product by id.
+ * @param {*} id
+ */
 export const displayProduct = (id) => (dispatch) => {
   fetch(`/api/catalog/product/${id}`)
     .then((data) => data.json())
     .then((product) => {
+      console.log('Product', product);
       dispatch({
         type: types.DISPLAY_PRODUCT,
         payload: product,
@@ -28,6 +36,9 @@ export const displayProduct = (id) => (dispatch) => {
     .catch((error) => console.error(error));
 };
 
+/**
+ * load all categories.
+ */
 export const loadCategories = () => (dispatch) => {
   fetch('/api/catalog/category')
     .then((data) => data.json())
@@ -40,6 +51,10 @@ export const loadCategories = () => (dispatch) => {
     .catch((error) => console.error(error));
 };
 
+/**
+ * add a new category.
+ * @param {*} name
+ */
 export const addCategory = (name) => (dispatch) => {
   fetch('/api/catalog/category', {
     method: 'POST',
@@ -58,8 +73,10 @@ export const addCategory = (name) => (dispatch) => {
     .catch((error) => console.log(error));
 };
 
-// export const displayProducts = () => {
-//   dispatch({
-//     type: types.DISPLAY_PRODUCTS,
-//   });
-// };
+/**
+ * 
+ */
+export const displayProducts = (catId) => ({
+  type: types.DISPLAY_PRODUCTS,
+  payload: catId,
+});

@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+
 import * as actions from '../actions/actions';
 import Category from '../components/Category';
 import CategoryCreator from '../components/CategoryCreator';
 
 const mapStateToProps = (state) => {
-  console.log(state);
+  // console.log(state);
   return {
     categoryList: state.catalog.categoryList,
   };
@@ -50,7 +52,11 @@ class CatalogPage extends Component {
 
     this.props.categoryList.forEach((category) =>
       categories.push(
-        <Category key={`cat-${category._id}`} name={category.name} />
+        <Category
+          key={`cat-${category._id}`}
+          name={category.name}
+          id={category._id}
+        />
       )
     );
 
