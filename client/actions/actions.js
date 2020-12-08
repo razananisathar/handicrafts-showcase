@@ -21,7 +21,7 @@ export const loadAllProducts = () => (dispatch) => {
 
 /**
  * get a product by id.
- * @param {*} id
+ * @param { string } id
  */
 export const displayProduct = (id) => (dispatch) => {
   fetch(`/api/catalog/product/${id}`)
@@ -53,7 +53,7 @@ export const loadCategories = () => (dispatch) => {
 
 /**
  * add a new category.
- * @param {*} name
+ * @param { string } name
  */
 export const addCategory = (name) => (dispatch) => {
   fetch('/api/catalog/category', {
@@ -74,9 +74,32 @@ export const addCategory = (name) => (dispatch) => {
 };
 
 /**
- * 
+ * get all products by category id.
+ * @param { string } catId
  */
 export const displayProducts = (catId) => ({
   type: types.DISPLAY_PRODUCTS,
   payload: catId,
 });
+
+/**
+ * add a new product.
+ * @param { object } product
+ */
+export const addProduct = (product) => (dispatch) => {
+  fetch('/api/catalog/product', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(product),
+  })
+    .then((data) => data.json())
+    .then(({ product }) => {
+      dispatch({
+        type: types.ADD_PRODUCT,
+        payload: product,
+      });
+    })
+    .catch((error) => console.log(error));
+};

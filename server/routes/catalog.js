@@ -1,16 +1,26 @@
 const express = require('express');
 
 const catalogController = require('../controllers/catalogController');
+const utilsController = require('../utils/utilsController');
 
 const router = express.Router();
 
-router.post('/category', catalogController.addCategory, (req, res) => res.status(200).json({ category: res.locals.category }));
+router.post('/category', catalogController.addCategory, (req, res) =>
+  res.status(200).json({ category: res.locals.category })
+);
 
-router.get('/category', catalogController.getCategories, (req, res) => res.status(200).json({ categories: res.locals.categories }));
+router.get('/category', catalogController.getCategories, (req, res) =>
+  res.status(200).json({ categories: res.locals.categories })
+);
 
-router.post('/product', catalogController.addProduct, (req, res) => {
-  res.sendStatus(200);
-});
+router.post(
+  '/product',
+  catalogController.addProduct,
+  utilsController.upload,
+  (req, res) => {
+    res.status(200).json({ product: res.locals.product });
+  }
+);
 
 router.get('/product', catalogController.getProducts, (req, res) => {
   res.status(200).json({ products: res.locals.products });

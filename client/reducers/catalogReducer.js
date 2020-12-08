@@ -46,6 +46,13 @@ const catalogReducer = (state = initialState, action) => {
         ),
       };
 
+    // @TBD test.
+    case types.ADD_PRODUCT:
+      return {
+        ...state,
+        productList: state.productList.concat(action.payload),
+      };
+
     default:
       return state;
   }

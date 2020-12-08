@@ -63,7 +63,7 @@ catalogController.getCategories = async (req, res, next) => {
  * @param {string} catId category id
  */
 catalogController.addProduct = async (req, res, next) => {
-  const { name, description, material, attrs, catId } = req.body;
+  const { name, description, material, attrs, catId, image } = req.body;
 
   if (
     !name ||
@@ -82,7 +82,7 @@ catalogController.addProduct = async (req, res, next) => {
   }
 
   try {
-    await new Product({
+    const product = await new Product({
       name,
       description,
       material,
@@ -90,6 +90,8 @@ catalogController.addProduct = async (req, res, next) => {
       cat_id: catId,
     }).save();
 
+    if (image) product.image = image;
+    res.locals.product = product;
     next();
   } catch (e) {
     console.log(e);
