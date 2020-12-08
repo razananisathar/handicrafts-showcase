@@ -18,6 +18,8 @@ module.exports = {
   },
   mode: process.env.NODE_ENV,
   devServer: {
+    publicPath: '/',
+    historyApiFallback: true,
     port: 8080,
     hot: true,
     open: true,
