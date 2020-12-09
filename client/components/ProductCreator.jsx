@@ -5,7 +5,7 @@ const ProductCreator = (props) => {
   return (
     <div className="product-creator">
       <h3>Create a New Product</h3>
-      <form onSubmit={props.submit.bind(this)}>
+      <form id="productForm" onSubmit={props.submit.bind(this)}>
         <div className="form-row">
           <label>Category</label>
           <input

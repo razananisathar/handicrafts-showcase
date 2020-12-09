@@ -12,6 +12,7 @@ const Showcase = (props) => {
         name={product.name}
         desc={product.description}
         id={product._id}
+        photo={product.photo}
       />
     )
   );

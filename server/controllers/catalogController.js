@@ -63,7 +63,7 @@ catalogController.getCategories = async (req, res, next) => {
  * @param {string} catId category id
  */
 catalogController.addProduct = async (req, res, next) => {
-  const { name, description, material, attrs, catId, image } = req.body;
+  const { name, description, material, attrs, catId, photo } = req.body;
 
   if (
     !name ||
@@ -88,13 +88,11 @@ catalogController.addProduct = async (req, res, next) => {
       material,
       attrs,
       cat_id: catId,
+      photo,
     }).save();
-
-    if (image) product.image = image;
     res.locals.product = product;
     next();
   } catch (e) {
-    console.log(e);
     return next({
       log: `catalogController.addProduct: ${e}`,
       status: 500,
@@ -221,8 +219,6 @@ catalogController.updateProduct = async (req, res, next) => {
     );
 
     const cid = product.cat_id;
-
-    console.log('PRODUCT', product);
 
     if (cid) {
       const category = await Category.findById({ _id: cid }).exec();

@@ -32,7 +32,7 @@ mongoose
 /**
  * handling static assets
  */
-app.use(express.static('client'));
+app.use(express.static(path.join(__dirname, 'uploads')));
 
 /**
  * handle parsing request body
@@ -53,7 +53,6 @@ app.get('/', (req, res) => {
  * Handle unknown routes.
  */
 app.use('*', (req, res) => {
-  console.log(req);
   res.sendStatus(404);
 });
 

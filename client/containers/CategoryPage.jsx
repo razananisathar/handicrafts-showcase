@@ -5,15 +5,19 @@ import ProductCreator from '../components/ProductCreator';
 import Product from '../components/Product';
 import * as actions from '../actions/actions';
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (
+  { catalog: { productList, categoryList, product } },
+  ownProps
+) => {
   const { catId, catName } = ownProps.match.params;
 
   // console.log('current catId', catId);
   // console.log('productList', state.catalog.productList.length);
 
   return {
-    productList: state.catalog.productList,
-    categoryList: state.catalog.categoryList,
+    productList,
+    categoryList,
+    product,
     catId,
     catName,
   };
@@ -22,6 +26,9 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => ({
   fetchProducts(catId) {
     dispatch(actions.displayProducts(catId));
+  },
+  uploadPhoto(image) {
+    dispatch(actions.uploadPhoto(image));
   },
   addProduct(product) {
     dispatch(actions.addProduct(product));
@@ -34,6 +41,14 @@ class CategoryPage extends Component {
     this.submit = this.submit.bind(this);
     this.state = {
       errorMessage: '',
+      formData: {
+        name: null,
+        description: null,
+        catId: null,
+        photo: null,
+        attrs: null,
+        material: null,
+      },
     };
   }
 
@@ -42,8 +57,24 @@ class CategoryPage extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.catId !== prevProps.catId) {
+    const {
+      catId,
+      product: { photo },
+    } = this.props;
+    if (catId !== prevProps.catId) {
       this.getProducts();
+    }
+
+    if (photo !== prevProps.product.photo) {
+      // @TBD object mutation.. why this not.
+      // this.setState((state) => {
+      //   state.formData = { ...state.formData, photo };
+      //   console.log('state', state);
+      //   return state;
+      // });
+
+      // console.log(this.state.formData.photo);
+      this.props.addProduct({ ...this.state.formData, photo });
     }
   }
 
@@ -64,6 +95,14 @@ class CategoryPage extends Component {
         return state;
       });
     } else {
+      const image = event.target.querySelector('#image').files[0] || null;
+
+      if (image) {
+        const data = new FormData();
+        data.append('photo', image);
+        this.props.uploadPhoto(data);
+      }
+
       const catId = event.target.querySelector('#category').dataset.catid;
       const description =
         event.target.querySelector('#description').value || null;
@@ -75,7 +114,6 @@ class CategoryPage extends Component {
       const qty = event.target.querySelector('#qty').value || 0;
       const purchasePrice =
         event.target.querySelector('#purchasePrice').value || 0.0;
-      const image = event.target.querySelector('#image').files[0] || null;
 
       const attrs = [];
 
@@ -89,26 +127,23 @@ class CategoryPage extends Component {
         qty,
         purchase_price: purchasePrice,
       });
-      // save product.
-      this.props.addProduct({
-        catId,
-        name,
-        description,
-        material,
-        attrs,
-        image,
-      });
 
       this.setState((state) => {
         state.errorMessage = '';
+        state.formData = {
+          catId,
+          name,
+          description,
+          material,
+          attrs,
+          photo: null,
+        };
         return state;
       });
     }
   }
 
   render() {
-    // console.log(this.props.productList);
-
     const { productList } = this.props;
 
     const products = [];

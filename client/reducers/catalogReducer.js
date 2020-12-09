@@ -9,7 +9,9 @@ const initialState = {
   // isFetching: false,
   productList: [],
   categoryList: [],
-  product: null,
+  product: {
+    photo: null,
+  },
 };
 
 const catalogReducer = (state = initialState, action) => {
@@ -53,6 +55,11 @@ const catalogReducer = (state = initialState, action) => {
         productList: state.productList.concat(action.payload),
       };
 
+    case types.UPLOAD_PRODUCT_IMAGE:
+      return {
+        ...state,
+        product: { photo: action.payload },
+      };
     default:
       return state;
   }

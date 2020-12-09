@@ -86,19 +86,39 @@ export const displayProducts = (catId) => ({
  * add a new product.
  * @param { object } product
  */
-export const addProduct = (product) => (dispatch) => {
+export const addProduct = (productObj) => (dispatch) => {
   fetch('/api/catalog/product', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(product),
+    body: JSON.stringify(productObj),
   })
     .then((data) => data.json())
     .then(({ product }) => {
       dispatch({
         type: types.ADD_PRODUCT,
         payload: product,
+      });
+    })
+    .catch((error) => console.log(error));
+};
+
+/**
+ * add a new product.
+ * @param { blob } image
+ */
+export const uploadPhoto = (image) => (dispatch) => {
+  fetch('/api/catalog/product/upload', {
+    method: 'POST',
+    headers: {},
+    body: image,
+  })
+    .then((data) => data.json())
+    .then(({ photo }) => {
+      dispatch({
+        type: types.UPLOAD_PRODUCT_IMAGE,
+        payload: photo,
       });
     })
     .catch((error) => console.log(error));

@@ -20,6 +20,10 @@ const productSchema = new Schema({
   material: {
     type: String,
   },
+  photo: {
+    type: String,
+    default: 'None',
+  },
   attrs: [
     {
       size: String,
