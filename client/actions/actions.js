@@ -26,8 +26,7 @@ export const loadAllProducts = () => (dispatch) => {
 export const displayProduct = (id) => (dispatch) => {
   fetch(`/api/catalog/product/${id}`)
     .then((data) => data.json())
-    .then((product) => {
-      console.log('Product', product);
+    .then(({ product }) => {
       dispatch({
         type: types.DISPLAY_PRODUCT,
         payload: product,

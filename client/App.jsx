@@ -5,6 +5,7 @@ import CatalogPage from './containers/CatalogPage';
 import CategoryPage from './containers/CategoryPage';
 import ProductPage from './containers/ProductPage';
 import NotFound from './components/NotFound';
+import ProductCreator from './components/ProductCreator';
 
 const App = (props) => (
   <div id="app">
@@ -23,17 +24,20 @@ const App = (props) => (
 
     {/* containers */}
     <Switch>
-      <Route exact path="/" children={<HomePage />} />
-      <Route exact path="/catalog" children={<CatalogPage />} />
+      <Route exact={true} path="/" component={HomePage} />
+      <Route exact={true} path="/catalog" component={CatalogPage} />
+
       <Route
-        exact
-        path="/catalog/:catName/:catId"
-        render={({ match }) => <CategoryPage match={match} />}
+        exact={true}
+        path="/catalog/product/:pid"
+        // render={({ match }) => <ProductPage match={match} />}
+        component={ProductPage}
       />
       <Route
-        exact
-        path="/catalog/product/:pid"
-        render={({ match }) => <ProductPage match={match} />}
+        exact={true}
+        path="/catalog/:catName/:catId"
+        // render={({ match }) => <CategoryPage match={match} />}
+        component={CategoryPage}
       />
       <Route path="/*" children={<NotFound />} />
     </Switch>

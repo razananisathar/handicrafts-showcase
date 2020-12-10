@@ -27,9 +27,9 @@ const productSchema = new Schema({
   attrs: [
     {
       size: String,
-      width: String,
-      height: String,
-      length: String,
+      width: Number,
+      height: Number,
+      length: Number,
       purchase_price: {
         type: Number,
         required: true,
@@ -61,8 +61,6 @@ const productSchema = new Schema({
 
 productSchema.pre('save', function (next) {
   const self = this;
-
-  console.log(self.attrs);
 
   self.attrs.forEach((product) => {
     // calculate sale price = purchase price * 10%

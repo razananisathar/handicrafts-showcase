@@ -5,17 +5,11 @@ import banner from '../assets/images/banner.jpeg';
 const Showcase = (props) => {
   const products = [];
 
-  props.productList.forEach((product) =>
+  props.productList.forEach(({ _id, name, photo }) => {
     products.push(
-      <Product
-        key={`pro-${product._id}`}
-        name={product.name}
-        desc={product.description}
-        id={product._id}
-        photo={product.photo}
-      />
-    )
-  );
+      <Product key={`pro-${_id}`} name={name} id={_id} photo={photo} />
+    );
+  });
 
   return (
     <div className="showcase">

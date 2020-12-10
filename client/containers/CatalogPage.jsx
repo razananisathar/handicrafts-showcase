@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+// import { withRouter } from 'react-router-dom';
 
 import * as actions from '../actions/actions';
 import Category from '../components/Category';
 import CategoryCreator from '../components/CategoryCreator';
 
-const mapStateToProps = (state) => {
-  // console.log(state);
-  return {
-    categoryList: state.catalog.categoryList,
-  };
-};
+const mapStateToProps = ({ catalog: { categoryList } }) => ({
+  categoryList,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   addCategory(name) {
@@ -30,19 +27,24 @@ class CatalogPage extends Component {
 
   submit(event) {
     event.preventDefault();
-
+    // form input values.
     const categoryName = event.target.querySelector('#categoryName').value;
 
     if (!categoryName) {
+      // set error.
       this.setState((state) => {
         state.errorMessage = 'Category name required.';
         return state;
       });
     } else {
+      // remove form error.
       this.setState((state) => {
         state.errorMessage = '';
         return state;
       });
+
+      // clear input fields.
+      event.target.querySelector('#categoryName').value = '';
       return this.props.addCategory(categoryName);
     }
   }
@@ -50,14 +52,8 @@ class CatalogPage extends Component {
   render() {
     const categories = [];
 
-    this.props.categoryList.forEach((category) =>
-      categories.push(
-        <Category
-          key={`cat-${category._id}`}
-          name={category.name}
-          id={category._id}
-        />
-      )
+    this.props.categoryList.forEach(({ _id, name }) =>
+      categories.push(<Category key={`cat-${_id}`} name={name} id={_id} />)
     );
 
     return (
@@ -67,7 +63,8 @@ class CatalogPage extends Component {
           submit={this.submit}
           message={this.state.errorMessage}
         />
-        {/* catalog page category display*/}
+        {/* catalog page category display: products for each category*/}
+        <h2>Categories</h2>
         <div className="category-container">{categories}</div>
       </div>
     );

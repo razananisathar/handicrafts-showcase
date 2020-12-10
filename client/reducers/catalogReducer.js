@@ -10,7 +10,12 @@ const initialState = {
   productList: [],
   categoryList: [],
   product: {
+    _id: '',
+    name: '',
+    description: '',
+    material: '',
     photo: null,
+    attrs: null,
   },
 };
 
@@ -35,9 +40,18 @@ const catalogReducer = (state = initialState, action) => {
       };
 
     case types.DISPLAY_PRODUCT:
+      const { _id, name, description, photo, attrs, material } = action.payload;
+
       return {
         ...state,
-        product: action.payload, //@TBD
+        product: {
+          _id,
+          name,
+          description,
+          photo,
+          material,
+          attrs: attrs.slice(),
+        },
       };
 
     case types.DISPLAY_PRODUCTS:

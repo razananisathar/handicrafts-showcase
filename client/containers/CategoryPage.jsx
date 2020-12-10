@@ -11,6 +11,8 @@ const mapStateToProps = (
 ) => {
   const { catId, catName } = ownProps.match.params;
 
+  console.log(ownProps);
+
   // console.log('current catId', catId);
   // console.log('productList', state.catalog.productList.length);
 
@@ -148,13 +150,14 @@ class CategoryPage extends Component {
 
     const products = [];
     if (productList) {
-      productList.forEach((product) => {
+      productList.forEach(({ _id, name, description, photo }) => {
         products.push(
           <Product
-            key={`pro-${product._id}`}
-            name={product.name}
-            desc={product.description}
-            id={product._id}
+            key={`pro-${_id}`}
+            name={name}
+            desc={description}
+            id={_id}
+            photo={photo}
           />
         );
       });
@@ -170,6 +173,7 @@ class CategoryPage extends Component {
           submit={this.submit}
           message={this.state.errorMessage}
         />
+        <h2>{this.props.catName} Products</h2>
         <div className="products-container">
           {/* display products for each category*/}
           {products.length === 0 ? <h4>Products not available</h4> : products}

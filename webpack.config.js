@@ -2,6 +2,7 @@ const path = require('path');
 const { HotModuleReplacementPlugin } = require('webpack');
 const HtmlWepackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const loader = require('sass-loader');
 
 console.log(process.env.NODE_ENV);
 
@@ -25,10 +26,15 @@ module.exports = {
     open: true,
     inline: true,
     proxy: {
-      '/api': {
+      '/': {
         target: 'http://localhost:3000/',
         secure: false,
       },
+      // '/images/**': {
+      //   target: 'http://localhost:3000/',
+      //   secure: false,
+      //   changeOrigin: true,
+      // },
     },
   },
   plugins: [
