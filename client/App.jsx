@@ -8,12 +8,12 @@ import NotFound from './components/NotFound';
 import ProductCreator from './components/ProductCreator';
 
 const App = (props) => (
-  <div id="app">
+  <div id="app" className="main">
     {/* Header */}
     <header>
       <nav className="navbar">
-        <div className="logo">
-          <p>Handicrafts</p>
+        <div className="">
+          <h2 className="logo-title">Handicrafts</h2>
         </div>
         <div className="nav-menu">
           <Link to="/">Home</Link>
@@ -43,7 +43,7 @@ const App = (props) => (
     </Switch>
     {/* footer */}
     <footer className="footer">
-      <p>Footer</p>
+      <p>&copy; {new Date().getFullYear()} All Rights Reserved </p>
     </footer>
   </div>
 );

@@ -4,7 +4,7 @@ import AddProductAttributes from './AddProductAttributes';
 const ProductCreator = (props) => {
   return (
     <div className="product-creator">
-      <h3>Create a New Product</h3>
+      <h3 className="form-title">Create a New Product</h3>
       <form id="productForm" onSubmit={props.submit.bind(this)}>
         <div className="form-row">
           <label>Category</label>
@@ -33,7 +33,7 @@ const ProductCreator = (props) => {
         </div>
         <div className="form-row">
           <label>Description</label>
-          <textarea name="description" id="description"></textarea>
+          <textarea name="description" id="description" rows="10"></textarea>
         </div>
         <div className="form-row">
           <label>Material</label>

@@ -1,6 +1,6 @@
 import React from 'react';
 import Product from './Product';
-import banner from '../assets/images/banner.jpeg';
+import banner from '../assets/images/handcraft.jpg';
 
 const Showcase = (props) => {
   const products = [];
@@ -13,9 +13,8 @@ const Showcase = (props) => {
 
   return (
     <div className="showcase">
-      <div className="hero">
-        <img src={banner} />
-      </div>
+      <div className="hero">{/* <img src={banner} /> */}</div>
+      <h2 className="heading">Sri Lankan Arts and Crafts</h2>
       {/* filter menu */}
       <div className="products-container">{products}</div>
     </div>

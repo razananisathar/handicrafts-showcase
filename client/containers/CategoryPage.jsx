@@ -173,7 +173,7 @@ class CategoryPage extends Component {
           submit={this.submit}
           message={this.state.errorMessage}
         />
-        <h2>{this.props.catName} Products</h2>
+        <h2 className="heading">{this.props.catName} Products</h2>
         <div className="products-container">
           {/* display products for each category*/}
           {products.length === 0 ? <h4>Products not available</h4> : products}

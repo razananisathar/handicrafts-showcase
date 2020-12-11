@@ -64,7 +64,7 @@ class CatalogPage extends Component {
           message={this.state.errorMessage}
         />
         {/* catalog page category display: products for each category*/}
-        <h2>Categories</h2>
+        <h2 className="heading">Categories</h2>
         <div className="category-container">{categories}</div>
       </div>
     );

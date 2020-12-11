@@ -15,7 +15,7 @@ const initialState = {
     description: '',
     material: '',
     photo: null,
-    attrs: null,
+    attrs: [],
   },
 };
 
