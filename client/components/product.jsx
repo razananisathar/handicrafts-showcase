@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Product = (props) => {
+  console.log(props);
   return (
     <div className="product-card">
       {props.catId ? (
@@ -16,8 +17,22 @@ const Product = (props) => {
       )}
       <Link to={`/catalog/product/${props.id}`}>
         <img src={`/${props.photo}`} alt={props.photo} />
-        <div>
+        <div className="pro-details">
           <p>{props.name}</p>
+          {props.hasOwnProperty('price') ? (
+            <p className="p-price">{`$${
+              props.price ? props.price.toFixed(2) : ''
+            }`}</p>
+          ) : (
+            ''
+          )}
+          {props.hasOwnProperty('available') ? (
+            <p className={!props.available ? 'p-available' : ''}>{`${
+              props.available ? '' : 'Out of stock'
+            }`}</p>
+          ) : (
+            ''
+          )}
         </div>
       </Link>
     </div>

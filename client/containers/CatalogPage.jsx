@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 // import { withRouter } from 'react-router-dom';
 
 import * as actions from '../actions/actions';
+import AddProductAttributes from '../components/AddProductAttributes';
 import Category from '../components/Category';
 import CategoryCreator from '../components/CategoryCreator';
 

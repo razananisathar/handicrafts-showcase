@@ -45,7 +45,7 @@ a {
 
 .navbar {
   display: flex;
-  background-color: $light-black;
+  background-color: $light-maroon;
   justify-content: flex-start;
   padding: 0 50px;
   align-items: center;
@@ -100,10 +100,35 @@ a {
 
     & > a {
       p {
-        color: $light-black;
+        color: $light-maroon;
         font-weight: normal;
         font-size: $font-size * 1.1;
         font-family: 'Roboto';
+      }
+    }
+
+    .pro-details {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      padding: 10px 0;
+      color: black;
+
+      p {
+        margin: 3px;
+
+        &.p-price {
+          color: red;
+          font-weight: 800;
+        }
+
+        &.p-available {
+          background: $light-maroon;
+          padding: 5px 10px;
+          color: white;
+          border-radius: 0.25rem;
+          font-size: $font-size * 0.75;
+        }
       }
     }
   }
@@ -148,8 +173,20 @@ a {
   font-family: 'Roboto';
   cursor: pointer;
   outline: none;
+  width: fit-content;
 }
 
+input[type='file'] {
+  width: fit-content;
+}
+
+textarea {
+  height: 100px;
+}
+
+select {
+  width: 300px;
+}
 .m-l-20 {
   margin-left: 20px;
 }
@@ -284,7 +321,7 @@ label {
 .btn-remove {
   margin-left: auto;
   padding: 0 5px;
-  background-color: $light-red;
+  background-color: $light-maroon;
   color: whitesmoke;
   font-weight: bold;
 }

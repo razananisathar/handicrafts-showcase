@@ -5,9 +5,16 @@ import banner from '../assets/images/handcraft.jpg';
 const Showcase = (props) => {
   const products = [];
 
-  props.productList.forEach(({ _id, name, photo }) => {
+  props.productList.forEach(({ _id, name, photo, attrs }) => {
     products.push(
-      <Product key={`pro-${_id}`} name={name} id={_id} photo={photo} />
+      <Product
+        key={`pro-${_id}`}
+        name={name}
+        id={_id}
+        photo={photo}
+        price={attrs[0].sale_price}
+        available={attrs[0].avail}
+      />
     );
   });
 
