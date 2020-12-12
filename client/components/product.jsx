@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Product = (props) => {
-  console.log(props);
   return (
     <div className="product-card">
       {props.catId ? (

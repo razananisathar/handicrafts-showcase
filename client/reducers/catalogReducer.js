@@ -57,12 +57,9 @@ const catalogReducer = (state = initialState, action) => {
     case types.DISPLAY_PRODUCTS:
       return {
         ...state,
-        productList: state.productList
-          .slice()
-          .filter(({ cat_id }) => cat_id === action.payload),
+        productList: action.payload,
       };
 
-    // @TBD test.
     case types.ADD_PRODUCT:
       return {
         ...state,

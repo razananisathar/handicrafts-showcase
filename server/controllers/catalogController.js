@@ -110,6 +110,7 @@ catalogController.addProduct = async (req, res, next) => {
  * Get a list of products.
  */
 catalogController.getProducts = async (req, res, next) => {
+  // load all products
   try {
     const products = await Product.find().exec();
     res.locals.products = products;
@@ -287,6 +288,39 @@ catalogController.deleteProduct = async (req, res, next) => {
   } catch (e) {
     return next({
       log: `catalogController.deleteProduct: ${e}`,
+      status: 500,
+      message: {
+        err: 'DB Error occurred',
+      },
+    });
+  }
+};
+
+/**
+ * get products by category id
+ * @param {string} category id
+ */
+catalogController.getProductsByCategory = async (req, res, next) => {
+  const { catId } = req.query;
+  // load products by category id.
+  if (!catId || typeof catId !== 'string') {
+    return next({
+      log:
+        'catalogController.getProductsByCategory: param id missing or invalid format',
+      status: 406,
+      message: {
+        err: 'Invalid request params.',
+      },
+    });
+  }
+
+  try {
+    const productsByCategory = await Product.find({ cat_id: catId }).exec();
+    res.locals.products = productsByCategory;
+    return next();
+  } catch (e) {
+    return next({
+      log: `catalogController.getProductsByCategory: ${e}`,
       status: 500,
       message: {
         err: 'DB Error occurred',

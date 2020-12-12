@@ -76,10 +76,17 @@ export const addCategory = (name) => (dispatch) => {
  * get all products by category id.
  * @param { string } catId
  */
-export const displayProducts = (catId) => ({
-  type: types.DISPLAY_PRODUCTS,
-  payload: catId,
-});
+export const displayProducts = (catId) => (dispatch) => {
+  fetch(`/api/catalog/product/search?catId=${catId}`)
+    .then((data) => data.json())
+    .then(({ products }) => {
+      dispatch({
+        type: types.DISPLAY_PRODUCTS,
+        payload: products,
+      });
+    })
+    .catch((error) => console.error(error));
+};
 
 /**
  * add a new product.

@@ -21,6 +21,15 @@ router.get('/product', catalogController.getProducts, (req, res) => {
   res.status(200).json({ products: res.locals.products });
 });
 
+// @TBD find better way to do.
+router.get(
+  '/product/search',
+  catalogController.getProductsByCategory,
+  (req, res) => {
+    res.status(200).json({ products: res.locals.products });
+  }
+);
+
 router.get('/product/:id', catalogController.getProduct, (req, res) => {
   res.status(200).json({ product: res.locals.product });
 });

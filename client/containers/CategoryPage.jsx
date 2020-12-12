@@ -11,12 +11,6 @@ const mapStateToProps = (
 ) => {
   const { catId, catName } = ownProps.match.params;
 
-  // console.log(ownProps);
-
-  console.log('category updated', productList);
-  // console.log('current catId', catId);
-  // console.log('productList', state.catalog.productList.length);
-
   return {
     productList,
     categoryList,
