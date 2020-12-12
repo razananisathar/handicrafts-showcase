@@ -1,3 +1,6 @@
+const fs = require('fs');
+const path = require('path');
+
 const { Category, Product } = require('../models/catalog');
 
 const catalogController = {};
@@ -257,8 +260,30 @@ catalogController.deleteProduct = async (req, res, next) => {
   }
 
   try {
-    await Product.findByIdAndDelete({ _id: id });
-    next();
+    const deleted = await Product.findByIdAndDelete({ _id: id });
+
+    const { photo } = deleted;
+
+    // delete the product image.
+    if (photo !== 'None') {
+      fs.unlink(path.resolve(__dirname, `../uploads/${photo}`), (err) => {
+        if (err) {
+          return next({
+            log: `catalogController.deleteProduct: ${err}`,
+            status: 500,
+            message: {
+              err: 'Unable to delete image file.',
+            },
+          });
+        }
+
+        res.locals.product = deleted;
+        next();
+      });
+    } else {
+      res.locals.product = deleted;
+      next();
+    }
   } catch (e) {
     return next({
       log: `catalogController.deleteProduct: ${e}`,

@@ -14,6 +14,9 @@ const mapDispatchToProps = (dispatch) => ({
   addCategory(name) {
     dispatch(actions.addCategory(name));
   },
+  getAllCategories() {
+    dispatch(actions.loadCategories());
+  },
 });
 
 class CatalogPage extends Component {
@@ -23,6 +26,10 @@ class CatalogPage extends Component {
       errorMessage: '',
     };
     this.submit = this.submit.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.getAllCategories();
   }
 
   submit(event) {

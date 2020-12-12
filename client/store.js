@@ -15,7 +15,7 @@ const store = createStore(
   composeWithDevTools(applyMiddleware(thunk))
 );
 
-store.dispatch(loadAllProducts());
-store.dispatch(loadCategories());
+// store.dispatch(loadAllProducts());
+// store.dispatch(loadCategories());
 
 export default store;

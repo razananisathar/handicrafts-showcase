@@ -14,7 +14,7 @@ const initialState = {
     name: '',
     description: '',
     material: '',
-    photo: null,
+    photo: '',
     attrs: [],
   },
 };
@@ -57,9 +57,9 @@ const catalogReducer = (state = initialState, action) => {
     case types.DISPLAY_PRODUCTS:
       return {
         ...state,
-        productList: state.productList.filter(
-          ({ cat_id }) => cat_id === action.payload
-        ),
+        productList: state.productList
+          .slice()
+          .filter(({ cat_id }) => cat_id === action.payload),
       };
 
     // @TBD test.
@@ -74,6 +74,21 @@ const catalogReducer = (state = initialState, action) => {
         ...state,
         product: { photo: action.payload },
       };
+
+    case types.DELETE_PRODUCT:
+      // remove deleted item from product list.
+      state.productList.splice(
+        state.productList.findIndex(
+          (product) => product._id === action.payload._id
+        ),
+        1
+      );
+
+      return {
+        ...state,
+        productList: state.productList.slice(),
+      };
+
     default:
       return state;
   }

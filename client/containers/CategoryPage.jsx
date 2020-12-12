@@ -11,8 +11,9 @@ const mapStateToProps = (
 ) => {
   const { catId, catName } = ownProps.match.params;
 
-  console.log(ownProps);
+  // console.log(ownProps);
 
+  console.log('category updated', productList);
   // console.log('current catId', catId);
   // console.log('productList', state.catalog.productList.length);
 
@@ -35,23 +36,29 @@ const mapDispatchToProps = (dispatch) => ({
   addProduct(product) {
     dispatch(actions.addProduct(product));
   },
+  deleteProduct(id) {
+    dispatch(actions.deleteProduct(id));
+  },
 });
 
 class CategoryPage extends Component {
   constructor(props) {
     super(props);
-    this.submit = this.submit.bind(this);
+
     this.state = {
       errorMessage: '',
       formData: {
-        name: null,
-        description: null,
-        catId: null,
-        photo: null,
-        attrs: null,
-        material: null,
+        name: '',
+        description: '',
+        catId: '',
+        photo: '',
+        attrs: [],
+        material: '',
       },
     };
+
+    this.submit = this.submit.bind(this);
+    this.remove = this.remove.bind(this);
   }
 
   componentDidMount() {
@@ -85,6 +92,11 @@ class CategoryPage extends Component {
     this.props.fetchProducts(catId);
   }
 
+  remove(id, event) {
+    event.preventDefault();
+    this.props.deleteProduct(id);
+  }
+
   submit(event) {
     event.preventDefault();
 
@@ -98,12 +110,6 @@ class CategoryPage extends Component {
       });
     } else {
       const image = event.target.querySelector('#image').files[0] || null;
-
-      if (image) {
-        const data = new FormData();
-        data.append('photo', image);
-        this.props.uploadPhoto(data);
-      }
 
       const catId = event.target.querySelector('#category').dataset.catid;
       const description =
@@ -133,20 +139,31 @@ class CategoryPage extends Component {
       this.setState((state) => {
         state.errorMessage = '';
         state.formData = {
+          ...state.formData,
           catId,
           name,
           description,
           material,
           attrs,
-          photo: null,
         };
+
         return state;
       });
+
+      // @TBD image field validation.
+      if (image) {
+        const data = new FormData();
+        data.append('photo', image);
+        this.props.uploadPhoto(data);
+      } else {
+        // @TBD add object without an image.
+        // this.props.addProduct(this.state.formData);
+      }
     }
   }
 
   render() {
-    const { productList } = this.props;
+    const { productList, catId } = this.props;
 
     const products = [];
     if (productList) {
@@ -158,6 +175,8 @@ class CategoryPage extends Component {
             desc={description}
             id={_id}
             photo={photo}
+            catId={catId}
+            remove={this.remove}
           />
         );
       });

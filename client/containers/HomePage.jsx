@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-// import * as actions from '../actions/actions';
+import * as actions from '../actions/actions';
 
 import Showcase from '../components/Showcase';
 
@@ -9,11 +9,19 @@ const mapStateToProps = (state) => ({
   productList: state.catalog.productList,
 });
 
-const mapDispatchToProps = (dispatch) => ({});
+const mapDispatchToProps = (dispatch) => ({
+  getAllProducts() {
+    dispatch(actions.loadAllProducts());
+  },
+});
 
 class HomePage extends Component {
   constructor(props) {
     super(props);
+  }
+
+  componentDidMount() {
+    this.props.getAllProducts();
   }
 
   render() {

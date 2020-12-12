@@ -122,3 +122,21 @@ export const uploadPhoto = (image) => (dispatch) => {
     })
     .catch((error) => console.log(error));
 };
+
+/**
+ * delete a product.
+ * @param { id } product id
+ */
+export const deleteProduct = (id) => (dispatch) => {
+  fetch(`/api/catalog/product/${id}`, {
+    method: 'DELETE',
+  })
+    .then((data) => data.json())
+    .then(({ product }) => {
+      dispatch({
+        type: types.DELETE_PRODUCT,
+        payload: product,
+      });
+    })
+    .catch((error) => console.log(error));
+};

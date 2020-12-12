@@ -30,7 +30,7 @@ router.put('/product/:id', catalogController.updateProduct, (req, res) => {
 });
 
 router.delete('/product/:id', catalogController.deleteProduct, (req, res) => {
-  res.status(200).json({});
+  res.status(200).json({ product: res.locals.product });
 });
 
 router.post('/product/upload/', utilsController.upload, (req, res) => {

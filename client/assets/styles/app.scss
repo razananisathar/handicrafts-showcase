@@ -80,6 +80,9 @@ a {
     width: 280px;
     margin: 10px;
     background-color: #f9f9f9;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: column;
 
     img {
       display: block;
@@ -277,6 +280,15 @@ label {
     }
   }
 }
+
+.btn-remove {
+  margin-left: auto;
+  padding: 0 5px;
+  background-color: $light-red;
+  color: whitesmoke;
+  font-weight: bold;
+}
+
 footer {
   background: #000011;
   padding: 5px;
