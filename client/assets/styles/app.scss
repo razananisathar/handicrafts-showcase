@@ -114,6 +114,11 @@ a {
       padding: 10px 0;
       color: black;
 
+      p:first-child {
+        height: 60px;
+        line-height: $base-lineheight* 0.75;
+      }
+
       p {
         margin: 3px;
 
@@ -310,6 +315,7 @@ label {
       h5 {
         padding: 5px;
       }
+
       h5,
       p {
         text-align: center;
@@ -324,6 +330,7 @@ label {
   background-color: $light-maroon;
   color: whitesmoke;
   font-weight: bold;
+  height: fit-content;
 }
 
 footer {
